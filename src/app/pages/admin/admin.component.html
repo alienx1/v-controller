@@ -1,0 +1,76 @@
+<nz-content>
+  <nz-page-header class="site-page-header" nzTitle="แอดมิน" nzSubtitle="ให้สิทธิ์แอดมิน">
+  </nz-page-header>
+  <div class="inner-content">
+    <!-- search bar -->
+    <div nz-col nzSpan="5">
+      <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+        <input type="text" nz-input [(ngModel)]="Search" placeholder="input search text" />
+      </nz-input-group>
+      <ng-template #suffixIconButton>
+        <button nz-button nzType="primary" nzSearch (click)="search()"><span nz-icon nzType="search"></span></button>
+      </ng-template>
+    </div>
+    <!-- end -->
+    <br>
+    <!-- show model -->
+    <button class="d-flex justify-content-center" nz-button nzType="primary" nzSpan="2" (click)="showModal()">
+      <span nz-icon nzType="plus-circle" nzTheme="twotone" style="font-size: large;"></span></button>
+    <!-- end -->
+    <br>
+    <!-- table -->
+    <nz-table #basicTable [nzData]="Data">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Rank</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.user_admin }}</td>
+          <td>{{ data.rank }}</td>
+          <td>
+            <a>Action</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="DeleteAdmin(data.user_admin)">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <!-- end -->
+  </div>
+  <!-- model -->
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="เพิ่ม แอดมิน" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    [nzOkLoading]="isOkLoading">
+
+    <form nz-form [formGroup]="CreateAdmin" class="login-form" *nzModalContent>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your username!">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="user_admin" placeholder="Username" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your Password!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="text" nz-input formControlName="password" placeholder="Password" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-control nzErrorTip="Please select your Rank!">
+        <nz-select id="rank" formControlName="rank" nzPlaceHolder="Rank">
+          <nz-option nzValue="owner" nzLabel="owner"></nz-option>
+          <nz-option nzValue="admin" nzLabel="admin"></nz-option>
+        </nz-select>
+      </nz-form-control>
+
+    </form>
+
+  </nz-modal>
+  <!-- end -->
+</nz-content>

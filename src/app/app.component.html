@@ -1,0 +1,52 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="264px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
+    <div class="sidebar-logo">
+
+      <img src="../assets/img/V-logo.png" alt="logo">
+      <h1>V-Controller</h1>
+
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a (click)="dashbord()">Dashboard</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="จัดการสมาชิก" nzIcon="user">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a (click)="user()">สมาชิก</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a (click)="admin()">แอดมิน</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed= !isCollapsed">
+          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+        </span>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <div *ngIf="!loader">
+          <router-outlet></router-outlet>
+        </div>
+        <!-- Loader  -->
+        <nz-spin nzTip="Loading..." *ngIf="loader">
+          <nz-alert nzType="info" nzMessage="Alert message title"
+            nzDescription="Further details about the context of this alert."></nz-alert>
+        </nz-spin>
+        <!-- End -->
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
